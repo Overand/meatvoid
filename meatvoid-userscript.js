@@ -16,3 +16,15 @@ replacedict['meat void'] = ["vagina", "pussy", "cunt", "vag", "twat", "vajayjay"
                             "snatch", "hoo-ha", "hoo ha", "box", "tang", "poon tang", 
                             // These are optional
                             "clit", "clitoris", "labia", "birth canal", "uterus", "cervix"]
+
+var els = document.getElementsByTagName("*");
+
+for (var dictkey in replacedict) {
+  for (var replaceword in replacedict[dictkey]) {
+    var matcher = '/'+dictkey+'/gi' //The actual source.    
+    for(var i = 0, l = els.length; i < l; i++) {
+      var el = els[i];
+      el.innerHTML = el.innerHTML.replace(matcher, replaceword);
+    }
+  }
+}
