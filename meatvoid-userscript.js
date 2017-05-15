@@ -7,6 +7,19 @@
 // @grant       none
 // ==/UserScript==
 
+console.log("Starting the script...")
+
+function replaceText(selector, text, newText, flags) {  
+  var matcher = new RegExp(text, flags);
+  console.log("Here's the matcher: " + matcher)
+  console.log("Replaced with: "+ newText)
+  var elems = document.querySelectorAll(selector), i;
+
+  for (i = 0; i < elems.length; i++)
+    if (!elems[i].childNodes.length)
+      elems[i].innerHTML = elems[i].innerHTML.replace(matcher, newText);
+}
+
 var replacedict = new Object(); // Each "Key" is the new euphemism. The values (arrays) are what is replaced
 
 replacedict['meat void'] = ["vagina", "pussy", "cunt", "vag", "twat", "vajayjay", "va jay jay", "vulva",
@@ -19,12 +32,17 @@ replacedict['meat void'] = ["vagina", "pussy", "cunt", "vag", "twat", "vajayjay"
 
 var els = document.getElementsByTagName("*");
 
-for (var dictkey in replacedict) {
-  for (var replaceword in replacedict[dictkey]) {
-    var matcher = '/'+dictkey+'/gi' //The actual source.    
-    for(var i = 0, l = els.length; i < l; i++) {
+for (var replacement in replacedict) {
+  for (var ireplaceword in replacedict[replacement]) {
+    replaceme = replacedict[replacement][ireplaceword]
+//    replaceText('*', replaceme, replacement, 'g')
+    //console.log("Replacing: [" + replaceme + "]   With: [" + replacement + ']')
+    //var matcher = '/'+replaceme+'/gi' // The actual source.
+    var matcher = new RegExp(replaceme, 'g');
+     for(var i = 0, l = els.length; i < l; i++) {
       var el = els[i];
-      el.innerHTML = el.innerHTML.replace(matcher, replaceword);
-    }
+      el.innerHTML = el.innerHTML.replace(matcher, replacement);
+    } 
+    
   }
-}
+} 
