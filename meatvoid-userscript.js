@@ -31,17 +31,16 @@ replacedict['meat void'] = ["vagina", "pussy", "cunt", "vag", "twat", "vajayjay"
                             "clit", "clitoris", "labia", "birth canal", "uterus", "cervix"]
 
 var els = document.getElementsByTagName("*");
-
-for (var replacement in replacedict) {
-  for (var ireplaceword in replacedict[replacement]) {
-    replaceme = replacedict[replacement][ireplaceword]
-//    replaceText('*', replaceme, replacement, 'g')
-    //console.log("Replacing: [" + replaceme + "]   With: [" + replacement + ']')
-    //var matcher = '/'+replaceme+'/gi' // The actual source.
-    var matcher = new RegExp(replaceme, 'g');
-     for(var i = 0, l = els.length; i < l; i++) {
-      var el = els[i];
-      el.innerHTML = el.innerHTML.replace(matcher, replacement);
+for(var i = 0, l = els.length; i < l; i++) {
+  var el = els[i];
+    for (var replacement in replacedict) {
+      for (var ireplaceword in replacedict[replacement]) {
+        replaceme = replacedict[replacement][ireplaceword]
+        //replaceText('*', replaceme, replacement, 'g')
+        //console.log("Replacing: [" + replaceme + "]   With: [" + replacement + ']')
+        //var matcher = '/'+replaceme+'/gi' // The actual source.
+        var matcher = new RegExp(replaceme, 'i');
+        el.innerHTML = el.innerHTML.replace(matcher, replacement);
     } 
     
   }
